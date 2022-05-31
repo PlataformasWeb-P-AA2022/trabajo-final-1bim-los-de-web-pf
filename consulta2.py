@@ -6,13 +6,10 @@ from sqlalchemy import or_
 # archivo genera_tablas
 from genera_tablas import *
 from configuracion import cadena_base_datos
-# se genera enlace al gestor de base de
-# datos
-# para el ejemplo se usa la base de datos
-# sqlite
+# se genera enlace al gestor de base de datos
+# para el ejemplo se usa la base de datos sqlite
 
 engine = create_engine(cadena_base_datos)
-
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -23,7 +20,7 @@ for p in parroquias:
     print(p,"\n")
 
 
-# Filtrado de datos en cuanto a canton cuyos establecimientos tengan de estudiantes tales como: 448, 450, 451, 454, 458, 459
+# Los cantones que tiene establecimientos como número de estudiantes tales como: 448, 450, 451, 454, 458, 459
 cantones = session.query(Canton).join(Parroquia, Establecimiento).filter(or_(Establecimiento.nroEstudiantes == 448 , 
     Establecimiento.nroEstudiantes == 450,
     Establecimiento.nroEstudiantes == 451,

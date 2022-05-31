@@ -6,20 +6,15 @@ from configuracion import cadena_base_datos
 
 import csv
 
-# se genera en enlace al gestor de base de
-# datos
-# para el ejemplo se usa la base de datos
-# sqlite
+# se genera en enlace al gestor de base de datos
+# para el ejemplo se usa la base de datos sqlite
 engine = create_engine(cadena_base_datos)
 
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# se crean objetos de tipo cantones
-
 # leer el archivo de datos
-
 with open('data/Listado-Instituciones-Educativas.csv') as File:
     # Separar cada columna del CSV
     read = csv.reader(File, delimiter='|')
@@ -27,15 +22,15 @@ with open('data/Listado-Instituciones-Educativas.csv') as File:
     next(read)
     # Lista que guardara cada linea del CSV
     listaC = []
-    #Ciclo para recorrer cada linea
     for x in read:
-        #Almacenamiento de las columnas que nos sirven (Codigo de provincia, codifo canton y canton)
+        #Almacenamiento de las columnas que nos sirven (Codigo de provincia, codigo canton y canton)
         auxCanton = x[2] + "|" + x[4] + "|" + x[5]
         # Agregar la variable anterior a la lista
         listaC.append(auxCanton)
     # Eliminar duplicados de la lista
     listaC = list(set(listaC))
-    # Ciclo para agregar cada provincia
+
+    
     for x in listaC:
         # Variable que devuelve la provincia de cada canton
         aux = session.query(Provincia).filter_by(codigo = x.split("|")[0]).first()
@@ -43,5 +38,5 @@ with open('data/Listado-Instituciones-Educativas.csv') as File:
         cant = Canton(codigo = x.split("|")[1], canton = x.split("|")[2], provincia = aux)
         # Agregar a la base el canton
         session.add(cant)
-# Guardar los cambios 
+
 session.commit()
