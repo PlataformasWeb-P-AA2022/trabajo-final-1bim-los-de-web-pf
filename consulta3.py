@@ -2,12 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import and_
 
-# se importa la clase(s) del 
-# archivo genera_tablas
+# se importa la clase(s) del archivo genera_tablas
 from genera_tablas import *
 from configuracion import cadena_base_datos
-# se genera enlace al gestor de base de datos
-# para el ejemplo se usa la base de datos sqlite
+# se genera enlace al gestor de base de datos para el ejemplo se usa la base de datos sqlite
 
 engine = create_engine(cadena_base_datos)
 
@@ -20,7 +18,7 @@ print("Los cantones que tiene establecimientos con 0 número de profesores, 5 pr
 for p in parroquias:
     print(p,"\n")
 
-# Los establecimientos que pertenecen a la parroquia Pindal con estudiantes mayores o iguales a 21
+# Establecimientos que pertenecen a la parroquia Pindal con estudiantes mayores o iguales a 21
 cantones = session.query(Establecimiento).join(Parroquia).filter(and_(Parroquia.parroquia == "PINDAL", Establecimiento.nroEstudiantes >= 21)).all()
 print("Los establecimientos que pertenecen a la parroquia Pindal con estudiantes mayores o iguales a 21")
 for p in cantones:
