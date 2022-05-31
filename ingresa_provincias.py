@@ -15,7 +15,7 @@ session = Session()
 
 # leer el archivo de datos
 
-with open('data/Listado-Instituciones-Educativas.csv') as File:
+with open("data/Listado-Instituciones-Educativas.csv", "r", encoding='utf-8') as File:
     # Separar cada columna del CSV
     read = csv.reader(File, delimiter='|')
     # Salto del encabezado del csv
@@ -28,7 +28,7 @@ with open('data/Listado-Instituciones-Educativas.csv') as File:
         # Agregar la variable anterior a la lista
         listaP.append(auxProvincia)
     # Eliminar duplicados de la lista
-    listaP = list(set(listaP))
+        listaP = list(set(listaP))
 
     for x in listaP:
         # Creacion de cada objeto de tipo provincia

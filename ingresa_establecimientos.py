@@ -14,7 +14,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # leer el archivo de datos
-with open('data/Listado-Instituciones-Educativas.csv') as File:
+with open("data/Listado-Instituciones-Educativas.csv", "r", encoding='utf-8') as File:
     # Separar cada columna del CSV
     read = csv.reader(File, delimiter='|')
     # Salto del encabezado del csv

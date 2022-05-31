@@ -14,17 +14,17 @@ Base = declarative_base()
 
 class Establecimiento(Base):
     __tablename__ = 'establecimiento'
-    codigo = Column(String, primary_key=True)
-    nombre = Column(String, nullable=false)
-    nroDistrito = Column(String, nullable=false)
-    sostenimiento = Column(String, nullable=false)
-    tipo = Column(String, nullable=false)
-    modalidad = Column(String, nullable=false)
-    jornada = Column(String, nullable=false)
-    acceso = Column(String, nullable=false)
+    codigo = Column(String(60), primary_key=True)
+    nombre = Column(String(150), nullable=false)
+    nroDistrito = Column(String(60), nullable=false)
+    sostenimiento = Column(String(60), nullable=false)
+    tipo = Column(String(60), nullable=false)
+    modalidad = Column(String(60), nullable=false)
+    jornada = Column(String(60), nullable=false)
+    acceso = Column(String(60), nullable=false)
     nroEstudiantes = Column(Integer, nullable=false)
     nroDocentes = Column(Integer, nullable=false)
-    parroquia_id = Column(String, ForeignKey('parroquia.codigo'), primary_key=True)
+    parroquia_id = Column(String(60), ForeignKey('parroquia.codigo'), primary_key=True)
     parroquia = relationship("Parroquia", back_populates="establecimientos")
     
     def __repr__(self):
@@ -41,10 +41,10 @@ class Establecimiento(Base):
 
 class Parroquia(Base):
     __tablename__ = 'parroquia'
-    codigo = Column(String, primary_key=True)
-    parroquia = Column(String, nullable=False)
+    codigo = Column(String(60), primary_key=True)
+    parroquia = Column(String(60), nullable=False)
     establecimientos = relationship("Establecimiento", back_populates="parroquia")
-    canton_id = Column(String, ForeignKey('canton.codigo'), primary_key=True)
+    canton_id = Column(String(60), ForeignKey('canton.codigo'), primary_key=True)
     canton = relationship("Canton", back_populates="parroquias")
 
     def __repr__(self):
@@ -55,10 +55,10 @@ class Parroquia(Base):
 
 class Canton(Base):
     __tablename__ = 'canton'
-    codigo = Column(String, primary_key=True)
-    canton = Column(String, nullable=False)
+    codigo = Column(String(60), primary_key=True)
+    canton = Column(String(60), nullable=False)
     parroquias = relationship("Parroquia", back_populates="canton")
-    provincia_id = Column(String, ForeignKey('provincia.codigo'), primary_key=True)
+    provincia_id = Column(String(60), ForeignKey('provincia.codigo'), primary_key=True)
     provincia = relationship("Provincia", back_populates="cantones")
 
     def __repr__(self):
@@ -70,8 +70,8 @@ class Canton(Base):
 
 class Provincia(Base):
     __tablename__ = 'provincia'
-    codigo = Column(String, primary_key=True)
-    provincia = Column(String, nullable=False)
+    codigo = Column(String(60), primary_key=True)
+    provincia = Column(String(60), nullable=False)
     cantones = relationship("Canton", back_populates="provincia")
 
     def __repr__(self):
